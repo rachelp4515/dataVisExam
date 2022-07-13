@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <title>cereal stuff</title>
+    <script src="./barChart.js"></script>
+    <script src ='./topCeral.js'></script>
+</head>
+
+<body>
+    <div>
+        <h2> 5 tops cereals and their carb content </h2>
+        <div id="carbSvg"></div>
+    </div>
+
+    <div>
+        <h2> Nutrients of All-Bran with Extra Fiber</h2>
+        <div id="nutrientsBreakdown"></div>
+    </div>
+
+
+    <script>
+        async function handleData() {
+            const data = await d3.csv('cereal.csv')
+            function sorted(data) {
+                const sort = data.sort((a, b) => {
+                    return parseFloat(b.rating) - parseFloat(a.rating)
+                })
+                return sort.slice(0, 5)
+            }
+            draw(sorted(data), '#carbSvg')
+            topDraw('#nutrientsBreakdown')
+        }
+        handleData()
+    </script>
+
+</body>
+
+</html>
